@@ -4,6 +4,11 @@ console.log("JS OK");
 //* Recupero gli elementi dal DOM
 const playBtn = document.getElementById("play-button");
 const gridElement = document.getElementById("grid");
+const selectElement = document.getElementById("level");
+
+let numberOfCells;
+let levelClass;
+
 //? Funzioni
 /* Funzione che crea una singola cella */
 const createCell = (number) => {
@@ -13,21 +18,37 @@ const createCell = (number) => {
   return cell;
 };
 
-//* Attendo il click del bottone
-playBtn.addEventListener(
-  "click",
-  () => {
-    //* Ciclo per inserire tutte e 100 le celle
-    for (let i = 1; i <= 100; i++) {
-      const cells = createCell(i);
-      cells.addEventListener("click", () => {
-        cells.classList.toggle("clicked");
-        console.log(i);
-      });
-      grid.appendChild(cells);
-    }
-  },
+//! Attendo il click del bottone
+playBtn.addEventListener("click", () => {
+  //* Prima di tutto pulisco la griglia.
+  gridElement.innerHTML = "";
 
-  // Consente di cliccare solo una volta e quindi di far apparire solo una griglia.
-  { once: true }
-);
+  //# Recupero il valore della select
+  const userChoice = selectElement.value;
+
+  //# Faccio il controllo del livello di difficoltà
+  if (userChoice === "1") {
+    //? EASY
+    levelClass = "easy";
+    numberOfCells = 100;
+  } else if (userChoice === "2") {
+    //? MEDIUM
+    levelClass = "medium";
+    numberOfCells = 81;
+  } else if (userChoice === "3") {
+    //? HARD
+    levelClass = "hard";
+    numberOfCells = 49;
+  }
+
+  //* Ciclo per inserire tutte e 100 le celle
+  for (let i = 1; i <= numberOfCells; i++) {
+    const cells = createCell(i);
+    cells.classList.add(levelClass);
+    cells.addEventListener("click", () => {
+      cells.classList.toggle("clicked");
+      console.log(i);
+    });
+    gridElement.appendChild(cells);
+  }
+});

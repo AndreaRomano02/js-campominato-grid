@@ -25,12 +25,26 @@ main{
   justify-content: center;
   flex-shrink: 0;
   border: 1px solid black;
-  width: calc(100% / 10);
-  height: calc(100% / 10);
   cursor: pointer;
   user-select: none;
 }
 
 .cell.clicked{
   background-color: green;
+}
+
+/** Difficuties */
+.cell.easy{
+  width: calc(100% / 10);
+  height: calc(100% / 10);
+}
+
+.cell.medium{
+  width: calc(100% / 9);
+  height: calc(100% / 9);
+}
+
+.cell.hard{
+  width: calc(100% / 7);
+  height: calc(100% / 7);
 }
